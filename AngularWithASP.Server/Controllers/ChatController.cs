@@ -6,7 +6,7 @@ namespace AngularWithASP.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ChatController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
