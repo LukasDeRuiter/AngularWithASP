@@ -4,14 +4,14 @@ import { HttpClient } from '@angular/common/http';
 interface Message {
   id: number;
   text: string;
-  position: number;
+  position: number; 
 }
 
 @Component({
   selector: 'app-chat',
   standalone: false,
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrl: './chat.component.css',
 })
 export class ChatComponent implements OnInit {
 

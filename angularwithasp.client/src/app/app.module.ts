@@ -6,14 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './pages/chat/chat.component';
 
+import { MatCardModule } from '@angular/material/card';
+
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule,
-    AppRoutingModule
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
