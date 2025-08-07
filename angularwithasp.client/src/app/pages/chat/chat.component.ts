@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 interface Message {
   id: number;
-  chat: string;
+  text: string;
   position: number;
 }
 
@@ -13,7 +13,7 @@ interface Message {
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
 
   public messages: Message[] = [];
   constructor(private http: HttpClient) { }

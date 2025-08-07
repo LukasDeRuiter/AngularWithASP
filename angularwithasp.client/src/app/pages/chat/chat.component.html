@@ -13,11 +13,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let message in messages">
+    <tr *ngFor="let message of messages">
       <td>{{ message.id }}</td>
       <td>{{ message.position }}</td>
       <td>{{ message.text }}</td>
     </tr>
   </tbody>
 </table>
-
