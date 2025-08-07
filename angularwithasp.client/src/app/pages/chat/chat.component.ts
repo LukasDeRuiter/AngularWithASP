@@ -23,7 +23,7 @@ export class ChatComponent {
   }
 
   getMessages() {
-    this.http.get<Message[]>('/chat').subscribe(
+    this.http.get<Message[]>('/api/chat').subscribe(
       (result) => {
         this.messages = result;
       },

@@ -9,7 +9,7 @@ namespace AngularWithASP.Server.Controllers
     public class ChatController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Get()
+        public IEnumerable<Message> Get()
         {
 
             var messages = new List<Message>
@@ -19,7 +19,7 @@ namespace AngularWithASP.Server.Controllers
                 new Message { Id = 2, Text = "Oof3", Position = 2 },
             };
 
-            return Ok(messages);
+            return messages;
         }
     }
 }
