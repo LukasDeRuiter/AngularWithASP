@@ -4,24 +4,7 @@
 
 <p *ngIf="!messages"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-<table *ngIf="messages">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Position</th>
-      <th>Text</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let message of messages">
-      <td>{{ message.id }}</td>
-      <td>{{ message.position }}</td>
-      <td>{{ message.text }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<mat-card appearance="outlined">
+<mat-card *ngFor="let message of messages" appearance="outlined">
   <mat-card-header>
     <mat-card-title> Australian Shepherd</mat-card-title>
     <mat-card-subtitle>Herding group</mat-card-subtitle>
