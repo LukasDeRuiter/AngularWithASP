@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { ChatComponent } from './pages/chat/chat.component';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     AppRoutingModule,
     MatCardModule,
+    MatFormField,
+    MatInput
   ],
   providers: [],
   bootstrap: [AppComponent]
