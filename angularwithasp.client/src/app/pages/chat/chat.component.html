@@ -9,16 +9,14 @@
     <mat-card-title>{{ message.id }}</mat-card-title>
     <mat-card-subtitle>{{ message.text }}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-actions>
-  </mat-card-actions>
 </mat-card>
 <br>
 
 <mat-form-field appearance="fill">
   <mat-label>What would you like to ask?</mat-label>
-  <input matInput placeholder="Ask away!" />
+  <input matInput placeholder="Ask away!" [(ngModel)]="userInput" />
 </mat-form-field>
 
-<button mat-icon-button>
+<button mat-icon-button (click)="sendMessage()">
   <mat-icon>favorite</mat-icon>
 </button>

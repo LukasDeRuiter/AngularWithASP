@@ -16,6 +16,8 @@ interface Message {
 export class ChatComponent implements OnInit {
 
   public messages: Message[] = [];
+
+  public userInput: string = '';
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
@@ -31,6 +33,11 @@ export class ChatComponent implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  sendMessage() {
+    console.log(this.userInput);
+    this.userInput = '';
   }
 
   title = 'angularwithasp.client';
