@@ -1,6 +1,5 @@
 ﻿using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularWithASP.Server.Controllers
@@ -12,7 +11,6 @@ namespace AngularWithASP.Server.Controllers
         [HttpGet]
         public IEnumerable<Message> Get()
         {
-
             var messages = new List<Message>
             {
                 new Message { Id = 0, Text = "Oof1", Position = 0 },
@@ -26,7 +24,6 @@ namespace AngularWithASP.Server.Controllers
         [HttpPost]
         public IEnumerable<Message> Post([FromBody] InputDTO input)
         {
-
             var messages = new List<Message>
             {
                 new Message { Id = 0, Text = input.UserInput, Position = 0 },

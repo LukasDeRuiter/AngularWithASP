@@ -36,14 +36,21 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.http.post<Message[]>('/api/chat', { userInput: this.userInput }).subscribe(
-      (result) => {
-        console.log(result)
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+
+    if (
+      this.userInput !== null &&
+      this.userInput !== ''
+    ) {
+      this.http.post<Message[]>('/api/chat', { userInput: this.userInput }).subscribe(
+        (result) => {
+          console.log(result);
+          this.userInput = '';
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   title = 'angularwithasp.client';
