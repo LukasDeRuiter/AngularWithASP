@@ -36,9 +36,7 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    this.userInput = '';
-
-    this.http.post<Message[]>('/api/chat', this.userInput).subscribe(
+    this.http.post<Message[]>('/api/chat', { userInput: this.userInput }).subscribe(
       (result) => {
         console.log(result)
       },
