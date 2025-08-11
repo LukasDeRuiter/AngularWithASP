@@ -21,5 +21,19 @@ namespace AngularWithASP.Server.Controllers
 
             return messages;
         }
+
+        [HttpPost]
+        public IEnumerable<Message> Post([FromBody] string userInput)
+        {
+
+            var messages = new List<Message>
+            {
+                new Message { Id = 0, Text = userInput, Position = 0 },
+                new Message { Id = 1, Text = "Oof2", Position = 1 },
+                new Message { Id = 2, Text = "Oof3", Position = 2 },
+            };
+
+            return messages;
+        }
     }
 }
