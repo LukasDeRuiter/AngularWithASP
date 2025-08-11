@@ -36,7 +36,6 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-
     if (
       this.userInput !== null &&
       this.userInput !== ''
