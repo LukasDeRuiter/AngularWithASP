@@ -1,6 +1,9 @@
-﻿using AngularWithASP.Server.DTOs;
+﻿using AngularWithASP.Server.Data;
+using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace AngularWithASP.Server.Controllers
 {
@@ -8,6 +11,13 @@ namespace AngularWithASP.Server.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
+        private readonly ChatContext _chatContext;
+
+        public ChatController(ChatContext chatContext)
+        {
+            _chatContext = chatContext;
+        }
+
         [HttpGet]
         public IEnumerable<Message> Get()
         {
@@ -22,16 +32,30 @@ namespace AngularWithASP.Server.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Message> Post([FromBody] InputDTO input)
+        public async Task<ActionResult<Message>> Post([FromBody] InputDTO input)
         {
-            var messages = new List<Message>
+            int currentPosition = 0;
+
+            var lastMessage = await _chatContext
+                .Messages
+                .OrderByDescending(message => message.Position)
+                .FirstOrDefaultAsync();
+
+            if (lastMessage != null)
             {
-                new Message { Id = 0, Text = input.UserInput, Position = 0 },
-                new Message { Id = 1, Text = "Oof2", Position = 1 },
-                new Message { Id = 2, Text = "Oof3", Position = 2 },
+                currentPosition = lastMessage.Position += 1;
+            }
+
+            var newMessage = new Message
+            {
+                Text = input.UserInput,
+                Position = currentPosition
             };
 
-            return messages;
+            _chatContext.Messages.Add(newMessage);
+            await _chatContext.SaveChangesAsync();
+
+            return Ok(newMessage);
         }
     }
 }
