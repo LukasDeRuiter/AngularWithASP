@@ -40,9 +40,24 @@ export class ChatComponent implements OnInit {
       this.userInput !== null &&
       this.userInput !== ''
     ) {
-      this.http.post<Message[]>('/api/chat', { userInput: this.userInput }).subscribe(
+
+      let currentHighestPosition = 0;
+
+      if (this.messages.length > 0) {
+        currentHighestPosition = Math.max(...this.messages.map(message => message.position));
+      }
+
+      const userMessage: Message = {
+        id: 0,
+        text: this.userInput,
+        position: currentHighestPosition
+      }
+
+      this.messages.push(userMessage);
+
+      this.http.post<Message>('/api/chat', { userInput: this.userInput }).subscribe(
         (result) => {
-          console.log(result);
+          this.messages.push(result);
           this.userInput = '';
         },
         (error) => {
