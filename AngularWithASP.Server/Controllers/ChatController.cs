@@ -43,7 +43,7 @@ namespace AngularWithASP.Server.Controllers
 
             if (lastMessage != null)
             {
-                currentPosition = lastMessage.Position += 1;
+                currentPosition = lastMessage.Position + 1;
             }
 
             var newMessage = new Message
