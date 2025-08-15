@@ -4,19 +4,21 @@
 
 <p *ngIf="!messages"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-<mat-card *ngFor="let message of messages" appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>{{ message.id }}</mat-card-title>
-    <mat-card-subtitle>{{ message.text }}</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
-<br>
+<div id="chat-container" style="max-height: 400px; overflow-y: auto;">
+  <mat-card *ngFor="let message of messages" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ message.id }}</mat-card-title>
+      <mat-card-subtitle>{{ message.text }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+  <br>
+</div>
 
-<mat-form-field appearance="fill">
-  <mat-label>What would you like to ask?</mat-label>
-  <input matInput placeholder="Ask away!" [(ngModel)]="userInput" />
-</mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>What would you like to ask?</mat-label>
+    <input matInput placeholder="Ask away!" [(ngModel)]="userInput" />
+  </mat-form-field>
 
-<button mat-icon-button (click)="sendMessage()">
-  <mat-icon>favorite</mat-icon>
-</button>
+  <button mat-icon-button (click)="sendMessage()">
+    <mat-icon>favorite</mat-icon>
+  </button>

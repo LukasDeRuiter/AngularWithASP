@@ -59,6 +59,11 @@ export class ChatComponent implements OnInit {
         (result) => {
           this.messages.push(result);
           this.userInput = '';
+
+          setTimeout(() => {
+            const chatContainer = document.getElementById('chat-container');
+            if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
+          }, 0);
         },
         (error) => {
           console.error(error);
