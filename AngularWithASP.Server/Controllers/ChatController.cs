@@ -75,7 +75,7 @@ namespace AngularWithASP.Server.Controllers
             var aiMessage = new Message
             { 
                 Text = aiResponse,
-                Position  =currentPosition + 1
+                Position = newMessage.Position + 1
             };
 
             _chatContext.Messages.Add(aiMessage);
