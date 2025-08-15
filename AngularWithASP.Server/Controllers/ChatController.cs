@@ -4,6 +4,8 @@ using AngularWithASP.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using OllamaSharp;
+using Microsoft.Extensions.AI;
 
 namespace AngularWithASP.Server.Controllers
 {
@@ -55,7 +57,31 @@ namespace AngularWithASP.Server.Controllers
             _chatContext.Messages.Add(newMessage);
             await _chatContext.SaveChangesAsync();
 
-            return Ok(newMessage);
+            var chatHistory = (await _chatContext.Messages
+                .OrderBy(m => m.Position)
+                .ToListAsync())
+                .Select(m => new ChatMessage(
+                    m.Text == input.UserInput ? ChatRole.User : ChatRole.Assistant,
+                    m.Text))
+                .ToList();
+
+            IChatClient chatClient = new OllamaApiClient(new Uri("http://localhost:11434/"), "phi3:mini");
+            string aiResponse = "";
+            await foreach (var update in chatClient.GetStreamingResponseAsync(chatHistory))
+            {
+                aiResponse += update.Text;
+            }
+
+            var aiMessage = new Message
+            { 
+                Text = aiResponse,
+                Position  =currentPosition + 1
+            };
+
+            _chatContext.Messages.Add(aiMessage);
+            await _chatContext.SaveChangesAsync();
+
+            return Ok(aiMessage);
         }
     }
 }
