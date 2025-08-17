@@ -5,6 +5,7 @@ using OllamaSharp;
 using Microsoft.Extensions.AI;
 using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.DomainServices;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace AngularWithASP.Server.Services
 {
@@ -41,8 +42,7 @@ namespace AngularWithASP.Server.Services
                 Position = _chatDomainServices.CalculateNewPosition(lastMessage)
             };
 
-            _chatContext.Messages.Add(newMessage);
-            await _chatContext.SaveChangesAsync();
+            SaveMessage(newMessage);
 
             var chatHistory = (await _chatContext.Messages
                 .OrderBy(m => m.Position)
@@ -65,10 +65,15 @@ namespace AngularWithASP.Server.Services
                 Position = newMessage.Position + 1
             };
 
-            _chatContext.Messages.Add(aiMessage);
-            await _chatContext.SaveChangesAsync();
+            SaveMessage(aiMessage);
 
             return aiMessage;
+        }
+
+        private async void SaveMessage(Message message)
+        {
+            _chatContext.Messages.Add(message);
+            await _chatContext.SaveChangesAsync();
         }
     }
 }
