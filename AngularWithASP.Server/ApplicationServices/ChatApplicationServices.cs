@@ -36,12 +36,7 @@ namespace AngularWithASP.Server.Services
                 .OrderByDescending(message => message.Position)
                 .FirstOrDefaultAsync();
 
-            var newMessage = new Message
-            {
-                Text = input.UserInput,
-                Position = _chatDomainServices.CalculateNewPosition(lastMessage)
-            };
-
+            var newMessage = _chatDomainServices.FormatMessage(input.UserInput, _chatDomainServices.CalculateNewPosition(lastMessage));
             SaveMessage(newMessage);
 
             var chatHistory = (await _chatContext.Messages
@@ -59,12 +54,7 @@ namespace AngularWithASP.Server.Services
                 aiResponse += update.Text;
             }
 
-            var aiMessage = new Message
-            {
-                Text = aiResponse,
-                Position = newMessage.Position + 1
-            };
-
+            var aiMessage = _chatDomainServices.FormatMessage(aiResponse, newMessage.Position + 1);
             SaveMessage(aiMessage);
 
             return aiMessage;

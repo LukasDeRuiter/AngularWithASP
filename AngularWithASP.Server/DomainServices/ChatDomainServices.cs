@@ -1,4 +1,5 @@
 ﻿using AngularWithASP.Server.Models;
+using Azure;
 
 namespace AngularWithASP.Server.DomainServices
 {
@@ -12,6 +13,17 @@ namespace AngularWithASP.Server.DomainServices
             }
 
             return 0;
+        }
+
+        public Message FormatMessage(string messageText, int position)
+        {
+            var message = new Message
+            {
+                Text = messageText,
+                Position = position
+            };
+
+            return message;
         }
     }
 }
