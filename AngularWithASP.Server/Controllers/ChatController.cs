@@ -33,50 +33,7 @@ namespace AngularWithASP.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Message>> Post([FromBody] InputDTO input)
         {
-            int currentPosition = 0;
-
-            var lastMessage = await _chatContext
-                .Messages
-                .OrderByDescending(message => message.Position)
-                .FirstOrDefaultAsync();
-
-            if (lastMessage != null)
-            {
-                currentPosition = lastMessage.Position + 1;
-            }
-
-            var newMessage = new Message
-            {
-                Text = input.UserInput,
-                Position = currentPosition
-            };
-
-            _chatContext.Messages.Add(newMessage);
-            await _chatContext.SaveChangesAsync();
-
-            var chatHistory = (await _chatContext.Messages
-                .OrderBy(m => m.Position)
-                .ToListAsync())
-                .Select(m => new ChatMessage(
-                    m.Text == input.UserInput ? ChatRole.User : ChatRole.Assistant,
-                    m.Text))
-                .ToList();
-
-            IChatClient chatClient = new OllamaApiClient(new Uri("http://localhost:11434/"), "phi3:mini");
-            string aiResponse = "";
-            await foreach (var update in chatClient.GetStreamingResponseAsync(chatHistory))
-            {
-                aiResponse += update.Text;
-            }
-
-            var aiMessage = new Message
-            { 
-                Text = aiResponse,
-                Position = newMessage.Position + 1
-            };
-
-            _chatContext.Messages.Add(aiMessage);
-            await _chatContext.SaveChangesAsync();
+            var aiMessage = await _chatService.SendMessage(input);
 
             return Ok(aiMessage);
         }
