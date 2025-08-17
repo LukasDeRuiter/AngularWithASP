@@ -4,16 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using OllamaSharp;
 using Microsoft.Extensions.AI;
 using AngularWithASP.Server.DTOs;
+using AngularWithASP.Server.DomainServices;
 
 namespace AngularWithASP.Server.Services
 {
     public class ChatApplicationServices
     {
         private readonly ChatContext _chatContext;
+        private readonly ChatDomainServices _chatDomainServices;
 
-        public ChatApplicationServices(ChatContext chatContext)
+        public ChatApplicationServices(ChatContext chatContext, ChatDomainServices chatDomainServices)
         {
             _chatContext = chatContext;
+            _chatDomainServices = chatDomainServices;
         }
 
         public List<Message> GetChatMessages()
