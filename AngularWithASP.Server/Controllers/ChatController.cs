@@ -1,6 +1,7 @@
 ﻿using AngularWithASP.Server.Data;
 using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.Models;
+using AngularWithASP.Server.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -14,23 +15,19 @@ namespace AngularWithASP.Server.Controllers
     public class ChatController : ControllerBase
     {
         private readonly ChatContext _chatContext;
+        private readonly ChatService _chatService;
 
-        public ChatController(ChatContext chatContext)
-        {
+        public ChatController(
+            ChatContext chatContext,
+            ChatService chatService
+            ) {
             _chatContext = chatContext;
         }
 
         [HttpGet]
         public IEnumerable<Message> Get()
         {
-            var messages = new List<Message>
-            {
-                new Message { Id = 0, Text = "Oof1", Position = 0 },
-                new Message { Id = 1, Text = "Oof2", Position = 1 },
-                new Message { Id = 2, Text = "Oof3", Position = 2 },
-            };
-
-            return messages;
+            return _chatService.GetChatMessages();
         }
 
         [HttpPost]
