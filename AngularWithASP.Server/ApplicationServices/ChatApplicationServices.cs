@@ -30,22 +30,15 @@ namespace AngularWithASP.Server.Services
 
         public async Task<Message> SendMessage(InputDTO input)
         {
-            int currentPosition = 0;
-
             var lastMessage = await _chatContext
                 .Messages
                 .OrderByDescending(message => message.Position)
                 .FirstOrDefaultAsync();
 
-            if (lastMessage != null)
-            {
-                currentPosition = lastMessage.Position + 1;
-            }
-
             var newMessage = new Message
             {
                 Text = input.UserInput,
-                Position = currentPosition
+                Position = _chatDomainServices.CalculateNewPosition(lastMessage)
             };
 
             _chatContext.Messages.Add(newMessage);
