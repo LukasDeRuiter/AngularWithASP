@@ -1,12 +1,7 @@
-﻿using AngularWithASP.Server.Data;
-using AngularWithASP.Server.DTOs;
+﻿using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.Models;
 using AngularWithASP.Server.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using OllamaSharp;
-using Microsoft.Extensions.AI;
 
 namespace AngularWithASP.Server.Controllers
 {
@@ -14,26 +9,22 @@ namespace AngularWithASP.Server.Controllers
     [ApiController]
     public class ChatController : ControllerBase
     {
-        private readonly ChatContext _chatContext;
-        private readonly ChatService _chatService;
+        private readonly ChatApplicationServices _chatApplicationServices;
 
-        public ChatController(
-            ChatContext chatContext,
-            ChatService chatService
-            ) {
-            _chatContext = chatContext;
+        public ChatController(ChatApplicationServices chatApplicationServices) {
+            _chatApplicationServices = chatApplicationServices;
         }
 
         [HttpGet]
         public IEnumerable<Message> Get()
         {
-            return _chatService.GetChatMessages();
+            return _chatApplicationServices.GetChatMessages();
         }
 
         [HttpPost]
         public async Task<ActionResult<Message>> Post([FromBody] InputDTO input)
         {
-            var aiMessage = await _chatService.SendMessage(input);
+            var aiMessage = await _chatApplicationServices.SendMessage(input);
 
             return Ok(aiMessage);
         }

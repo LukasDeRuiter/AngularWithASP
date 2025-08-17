@@ -7,11 +7,11 @@ using AngularWithASP.Server.DTOs;
 
 namespace AngularWithASP.Server.Services
 {
-    public class ChatService
+    public class ChatApplicationServices
     {
         private readonly ChatContext _chatContext;
 
-        public ChatService(ChatContext chatContext)
+        public ChatApplicationServices(ChatContext chatContext)
         {
             _chatContext = chatContext;
         }
