@@ -5,7 +5,6 @@ using OllamaSharp;
 using Microsoft.Extensions.AI;
 using AngularWithASP.Server.DTOs;
 using AngularWithASP.Server.DomainServices;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace AngularWithASP.Server.Services
 {
