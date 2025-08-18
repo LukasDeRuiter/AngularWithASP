@@ -11,6 +11,9 @@ namespace AngularWithASP.Server.Services
 {
     public class ChatApplicationServices
     {
+        private const string LANGUAGE_MODEL = "phi3:mini";
+        private const string URI = "http://localhost:11434/";
+
         private readonly ChatContext _chatContext;
         private readonly ChatDomainServices _chatDomainServices;
 
@@ -47,7 +50,7 @@ namespace AngularWithASP.Server.Services
                     m.Text))
                 .ToList();
 
-            IChatClient chatClient = new OllamaApiClient(new Uri("http://localhost:11434/"), "phi3:mini");
+            IChatClient chatClient = new OllamaApiClient(new Uri(URI), LANGUAGE_MODEL);
             string aiResponse = "";
             await foreach (var update in chatClient.GetStreamingResponseAsync(chatHistory))
             {
