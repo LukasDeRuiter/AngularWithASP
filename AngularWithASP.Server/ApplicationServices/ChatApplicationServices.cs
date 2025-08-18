@@ -39,7 +39,7 @@ namespace AngularWithASP.Server.Services
                 .FirstOrDefaultAsync();
 
             var newMessage = _chatDomainServices.FormatMessage(input.UserInput, _chatDomainServices.CalculateNewPosition(lastMessage));
-            SaveMessage(newMessage);
+            await SaveMessage(newMessage);
 
             var chatHistory = (await _chatContext.Messages
                 .OrderBy(m => m.Position)
@@ -57,12 +57,12 @@ namespace AngularWithASP.Server.Services
             }
 
             var aiMessage = _chatDomainServices.FormatMessage(aiResponse, newMessage.Position + 1);
-            SaveMessage(aiMessage);
+            await SaveMessage(aiMessage);
 
             return aiMessage;
         }
 
-        private async void SaveMessage(Message message)
+        private async Task SaveMessage(Message message)
         {
             _chatContext.Messages.Add(message);
             await _chatContext.SaveChangesAsync();
