@@ -22,11 +22,11 @@ namespace AngularWithASP.Server.Services
             _chatDomainServices = chatDomainServices;
         }
 
-        public List<Message> GetChatMessages()
+        public async Task<List<Message>> GetChatMessages()
         {
-            var messages = _chatContext.Messages
+            var messages = await _chatContext.Messages
                 .OrderBy(m => m.Position)
-                .ToList();
+                .ToListAsync();
 
             return messages;
         }

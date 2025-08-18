@@ -16,9 +16,9 @@ namespace AngularWithASP.Server.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Message> Get()
+        public async Task<IEnumerable<Message>> Get()
         {
-            return _chatApplicationServices.GetChatMessages();
+            return await _chatApplicationServices.GetChatMessages();
         }
 
         [HttpPost]
