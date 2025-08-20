@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class MessageComponent {
 
+  public isUserMessage: boolean = true;
+
 }
