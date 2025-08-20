@@ -5,12 +5,7 @@
 <p *ngIf="!messages"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
 <div id="chat-container" style="max-height: 400px; overflow-y: auto;">
-  <mat-card *ngFor="let message of messages" appearance="outlined">
-    <mat-card-header>
-      <mat-card-title>{{ message.id }}</mat-card-title>
-      <mat-card-subtitle>{{ message.text }}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <app-message *ngFor="let message of messages" [message]="message" />
   <br>
 </div>
 

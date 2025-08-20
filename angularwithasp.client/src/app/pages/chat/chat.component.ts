@@ -1,11 +1,7 @@
 import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Message } from '../../models/message.model';
 
-interface Message {
-  id: number;
-  text: string;
-  position: number; 
-}
 
 @Component({
   selector: 'app-chat',
