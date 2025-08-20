@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Message } from '../../models/message.model';
 
 @Component({
   selector: 'app-message',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class MessageComponent {
 
-  public isUserMessage: boolean = true;
+  @Input() isUserMessage: boolean = true; 
 
+  @Input() message!: Message;
 }
